@@ -1,10 +1,10 @@
 import 'package:expenses/components/chart_bar.dart';
-import 'package:expenses/models/transaction.dart';
+import 'package:expenses/models/task.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Chart extends StatelessWidget {
-  final List<Transaction> recentTransactions;
+  final List<Task> recentTransactions;
   const Chart({super.key, required this.recentTransactions});
 
   List<Map<String, Object>> get groupedTransactions {
@@ -19,7 +19,7 @@ class Chart extends StatelessWidget {
         bool sameYear = recentTransactions[i].date.year == weekDay.year;
 
         if (sameDay && sameMOnth && sameYear) {
-          totalSum += recentTransactions[i].value;
+          //totalSum += recentTransactions[i].value;
         }
       }
 

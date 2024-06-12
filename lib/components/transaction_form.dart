@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TransactionForm extends StatefulWidget {
-  final void Function(String, double) onSubmit;
+  final void Function(String, String) onSubmit;
 
   TransactionForm({super.key, required this.onSubmit});
 
@@ -12,7 +12,7 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final titleController = TextEditingController();
 
-  final valueController = TextEditingController();
+  final descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,19 +27,19 @@ class _TransactionFormState extends State<TransactionForm> {
               decoration: InputDecoration(label: Text("Título")),
             ),
             TextField(
-              controller: valueController,
-              decoration: InputDecoration(label: Text("Valor")),
+              controller: descriptionController,
+              decoration: InputDecoration(label: Text("Descrição")),
             ),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: ElevatedButton(
                   onPressed: () {
                     if (titleController.text.isEmpty ||
-                        valueController.text.isEmpty) {
+                        descriptionController.text.isEmpty) {
                       return;
                     }
-                    widget.onSubmit(titleController.text,
-                        double.tryParse(valueController.text) ?? 0.0);
+                    widget.onSubmit(
+                        titleController.text, descriptionController.text);
                   },
                   child: Text("Salvar Transação")),
             )
