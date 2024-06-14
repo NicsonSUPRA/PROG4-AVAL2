@@ -18,10 +18,8 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('atualizou');
-    final taskProvider = Provider.of<TaskProvider>(context);
+    final taskProvider = Provider.of<TaskProvider>(context, listen: false);
     taskProvider.load();
-    print(taskProvider.tasks);
     return Scaffold(
       appBar: AppBar(
         title: Text("To Do List"),
