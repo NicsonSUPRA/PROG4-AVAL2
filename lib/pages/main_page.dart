@@ -1,52 +1,27 @@
-import 'dart:math';
-
-import 'package:expenses/components/transaction_chart.dart';
 import 'package:expenses/components/transaction_form.dart';
 import 'package:expenses/components/transaction_list.dart';
-import 'package:expenses/models/task.dart';
+import 'package:expenses/provider/task_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class MainPage extends StatefulWidget {
+class MainPage extends StatelessWidget {
   MainPage({super.key});
 
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
-  final List<Task> _tasks = [];
-
-  // List<Task> get _recentTransactions {
-  //   return _tasks.where((transaction) {
-  //     return transaction.date
-  //         .isAfter(DateTime.now().subtract(Duration(days: 7)));
-  //   }).toList();
-  // }
-
-  _taskAdd(String title, String description) {
-    final newTask = Task(
-        id: Random().nextInt(100).toString(),
-        title: title,
-        description: description,
-        date: DateTime.now());
-    setState(() {
-      _tasks.add(newTask);
-    });
-
-    Navigator.of(context).pop();
-  }
-
+  //final List<Task> _tasks = [];
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (_) {
-          return TransactionForm(onSubmit: _taskAdd);
+          return TransactionForm();
         });
   }
 
   @override
   Widget build(BuildContext context) {
+    print('atualizou');
+    final taskProvider = Provider.of<TaskProvider>(context);
+    taskProvider.load();
+    print(taskProvider.tasks);
     return Scaffold(
       appBar: AppBar(
         title: Text("To Do List"),
@@ -61,7 +36,7 @@ class _MainPageState extends State<MainPage> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [TaskList(taskList: _tasks)],
+          children: [TaskList()],
         ),
       ),
       floatingActionButton: FloatingActionButton(
